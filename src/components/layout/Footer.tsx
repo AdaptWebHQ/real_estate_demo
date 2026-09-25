@@ -1,222 +1,150 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import {
-  Instagram,
-  Linkedin,
-  Youtube,
-  MapPin,
-  Phone,
-  Mail,
-  ArrowUp,
-  ArrowRight,
-  Send,
-  CheckCircle2,
-  Building2,
-  Sparkles,
-} from 'lucide-react';
+import { ArrowUpRight, ArrowUp } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
 
 export const Footer: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim() && email.includes('@')) {
-      setSubscribed(true);
-      setEmail('');
-    }
-  };
-
   return (
-    <footer className="bg-charcoal text-white pt-24 pb-12 border-t border-gold/30 relative overflow-hidden">
-      {/* Background Architectural Watermark Emblem */}
-      <div className="absolute right-0 bottom-0 pointer-events-none opacity-5 select-none transform translate-x-1/4 translate-y-1/4">
-        <svg viewBox="0 0 400 400" className="w-[650px] h-[650px] text-gold" fill="currentColor">
-          <path d="M200 60L320 300H275L200 150L125 300H80L200 60Z" />
-        </svg>
-      </div>
+    <footer className="bg-forest text-ivory relative overflow-hidden pt-20 pb-12 border-t border-white/10">
+      {/* Background Architectural Grid Pattern */}
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[radial-gradient(#F5F2EA_1px,transparent_1px)] [background-size:32px_32px]" />
+      
+      {/* Background Subtle Architectural Lines */}
+      <svg
+        className="absolute right-0 top-0 w-[800px] h-[800px] opacity-[0.03] pointer-events-none"
+        viewBox="0 0 800 800"
+        fill="none"
+      >
+        <circle cx="400" cy="400" r="300" stroke="#F5F2EA" strokeWidth="1" />
+        <circle cx="400" cy="400" r="200" stroke="#F5F2EA" strokeWidth="1" />
+        <line x1="100" y1="400" x2="700" y2="400" stroke="#F5F2EA" strokeWidth="1" />
+        <line x1="400" y1="100" x2="400" y2="700" stroke="#F5F2EA" strokeWidth="1" />
+      </svg>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-
-        {/* Top Newsletter & Brand Statement Banner */}
-        <div className="pb-16 border-b border-gold/20 mb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-charcoal-800/90 p-8 sm:p-12 border border-gold/30 relative overflow-hidden backdrop-blur-md shadow-2xl">
-            {/* Subtle glow */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="lg:col-span-7 space-y-3">
-              <div className="flex items-center gap-2 text-gold text-xs uppercase tracking-[0.25em] font-medium">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>PRIVATE RESIDENCE GAZETTE</span>
-              </div>
-              <h3 className="font-serif text-2xl sm:text-4xl font-normal text-white leading-tight">
-                Spaces Designed for <br />
-                <span className="italic text-gold font-light">Better Living.</span>
-              </h3>
-              <p className="text-xs text-stone-light/70 font-light max-w-lg leading-relaxed">
-                Receive curated previews of upcoming signature developments across Coimbatore, Chennai, and Bengaluru.
-              </p>
+        
+        {/* Top Area: Massive Typographic Invitation */}
+        <div className="pb-16 border-b border-white/10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+            <div className="lg:col-span-8">
+              <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium mb-4 block">
+                BEGIN YOUR INQUIRY
+              </span>
+              <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-normal leading-[0.95] text-ivory tracking-tight">
+                Let's Find <br />
+                <span className="italic font-light text-sand">Your Place.</span>
+              </h2>
             </div>
 
-            {/* Newsletter Input */}
-            <div className="lg:col-span-5">
-              {subscribed ? (
-                <div className="bg-charcoal/90 border border-gold/50 p-4 flex items-center gap-3 text-gold text-xs">
-                  <CheckCircle2 className="w-5 h-5 shrink-0" />
-                  <span>Thank you. You have been added to our private portfolio gazette.</span>
-                </div>
-              ) : (
-                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email address..."
-                    required
-                    className="flex-1 bg-charcoal text-white border border-stone/40 px-4 py-3.5 text-xs focus:border-gold focus:outline-none transition-colors"
-                  />
-                  <button
-                    type="submit"
-                    className="px-6 py-3.5 bg-gold text-charcoal text-xs uppercase tracking-[0.2em] font-semibold hover:bg-gold-light transition-all duration-300 flex items-center justify-center gap-2 group shrink-0 shadow-lg"
-                  >
-                    <span>Subscribe</span>
-                    <Send className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                  </button>
-                </form>
-              )}
+            <div className="lg:col-span-4 space-y-6 lg:pl-8">
+              <div className="space-y-2">
+                <a
+                  href="mailto:hello@aureviaestates.example"
+                  className="block font-sans text-lg sm:text-xl text-ivory/90 hover:text-terracotta transition-colors duration-300"
+                >
+                  hello@aureviaestates.example
+                </a>
+                <a
+                  href="tel:+914224012800"
+                  className="block font-mono text-base text-sand/80 hover:text-ivory transition-colors duration-300"
+                >
+                  +91 422 401 2800
+                </a>
+              </div>
+
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-terracotta text-ivory text-xs uppercase tracking-[0.2em] font-medium hover:bg-bronze transition-colors duration-300 group shadow-lg"
+              >
+                <span>SCHEDULE A VISIT</span>
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* 4 Main Columns Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-16 border-b border-gold/15">
-
-          {/* Column 1: Brand & Identity with New Logo */}
-          <div className="lg:col-span-4 space-y-6">
+        {/* Footer Main Columns */}
+        <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 border-b border-white/10">
+          
+          {/* LEFT COLUMN: Logo & Description */}
+          <div className="lg:col-span-5 space-y-6">
             <Logo size="lg" />
-
-            <p className="text-xs text-stone-light/70 font-light leading-relaxed max-w-sm">
-              Contemporary property developer shaped around architectural proportion, carefully selected locations, and transparent long-term value across South India.
+            <p className="text-sm font-light text-sand/70 leading-relaxed max-w-md">
+              Thoughtfully designed residences and commercial spaces in exceptional locations across South India, created around the way modern families live.
             </p>
-
-            <div className="flex items-center space-x-3 pt-2">
-              <a
-                href="https://instagram.example"
-                target="_blank"
-                rel="noreferrer"
-                className="w-10 h-10 rounded-none border border-gold/40 flex items-center justify-center text-gold hover:bg-gold hover:text-charcoal transition-all duration-300 shadow-sm"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a
-                href="https://linkedin.example"
-                target="_blank"
-                rel="noreferrer"
-                className="w-10 h-10 rounded-none border border-gold/40 flex items-center justify-center text-gold hover:bg-gold hover:text-charcoal transition-all duration-300 shadow-sm"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href="https://youtube.example"
-                target="_blank"
-                rel="noreferrer"
-                className="w-10 h-10 rounded-none border border-gold/40 flex items-center justify-center text-gold hover:bg-gold hover:text-charcoal transition-all duration-300 shadow-sm"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-4 h-4" />
-              </a>
-            </div>
           </div>
 
-          {/* Column 2: Navigation Links */}
+          {/* CENTER COLUMN: Explore Navigation */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="font-serif text-lg text-gold font-normal border-b border-gold/20 pb-2 flex items-center justify-between">
-              <span>Navigation</span>
-              <span className="h-[1px] w-6 bg-gold/40"></span>
-            </h4>
-            <ul className="space-y-3 text-xs font-light text-stone-light/80 uppercase tracking-[0.18em]">
+            <h3 className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium">
+              EXPLORE
+            </h3>
+            <ul className="space-y-3 font-serif text-lg text-ivory/90">
               {[
                 { name: 'Properties', href: '/properties' },
                 { name: 'Projects', href: '/projects' },
-                { name: 'About Us', href: '/about' },
-                { name: 'Services', href: '/services' },
+                { name: 'About', href: '/about' },
                 { name: 'Insights', href: '/insights' },
-                { name: 'Contact', href: '/contact' },
               ].map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="hover:text-gold transition-colors duration-300 flex items-center gap-2 group"
+                    className="hover:text-terracotta transition-colors duration-300 block"
                   >
-                    <ArrowRight className="w-3 h-3 text-gold opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                    <span>{item.name}</span>
+                    {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Regional Presence & Hubs */}
-          <div className="lg:col-span-2 space-y-4">
-            <h4 className="font-serif text-lg text-gold font-normal border-b border-gold/20 pb-2 flex items-center justify-between">
-              <span>Locations</span>
-              <span className="h-[1px] w-6 bg-gold/40"></span>
-            </h4>
-            <ul className="space-y-3 text-xs font-light text-stone-light/80">
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-gold rounded-full"></span>
-                <strong className="text-white font-medium">Coimbatore (HQ)</strong>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-stone/40 rounded-full"></span>
-                <span>Chennai</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-stone/40 rounded-full"></span>
-                <span>Bengaluru</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-stone/40 rounded-full"></span>
-                <span>Ooty</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-stone/40 rounded-full"></span>
-                <span>Tiruppur</span>
-              </li>
-            </ul>
-          </div>
+          {/* RIGHT COLUMN: Visit Us & Social */}
+          <div className="lg:col-span-4 space-y-6">
+            <div className="space-y-2">
+              <h3 className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium">
+                VISIT US
+              </h3>
+              <p className="text-sm font-light text-sand/80 leading-relaxed">
+                No. 42, Avinashi Road<br />
+                Coimbatore, Tamil Nadu 641018
+              </p>
+            </div>
 
-          {/* Column 4: Corporate Desk Glassmorphic Card */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="font-serif text-lg text-gold font-normal border-b border-gold/20 pb-2 flex items-center justify-between">
-              <span>Corporate Desk</span>
-              <Building2 className="w-4 h-4 text-gold/60" />
-            </h4>
-            <div className="bg-charcoal-800/90 border border-gold/30 p-5 space-y-4 shadow-card">
-              <div className="flex items-start gap-3 text-xs text-stone-light/90 font-light">
-                <MapPin className="w-4 h-4 text-gold shrink-0 mt-0.5" />
-                <span>No. 42, Avinashi Road, Coimbatore, Tamil Nadu 641018</span>
-              </div>
-              <div className="flex items-center gap-3 text-xs text-stone-light/90 font-light">
-                <Phone className="w-4 h-4 text-gold shrink-0" />
-                <a href="tel:+914224012800" className="hover:text-gold transition-colors font-mono">
-                  +91 422 401 2800
+            <div className="space-y-2">
+              <h3 className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium">
+                SOCIAL
+              </h3>
+              <div className="flex items-center gap-6 text-sm font-light text-sand/80">
+                <a
+                  href="https://instagram.example"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-ivory transition-colors duration-300"
+                >
+                  Instagram
                 </a>
-              </div>
-              <div className="flex items-center gap-3 text-xs text-stone-light/90 font-light">
-                <Mail className="w-4 h-4 text-gold shrink-0" />
-                <a href="mailto:hello@aureviaestates.example" className="hover:text-gold transition-colors">
-                  hello@aureviaestates.example
+                <a
+                  href="https://linkedin.example"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-ivory transition-colors duration-300"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href="https://youtube.example"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-ivory transition-colors duration-300"
+                >
+                  YouTube
                 </a>
               </div>
             </div>
@@ -225,27 +153,38 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Footer Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-light/60 font-light">
-          <div className="flex flex-wrap items-center gap-3">
-            <span>© 2026 Aurevia Estates — Demo Experience</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-gold inline-block"></span>
-            <span className="text-[10px] uppercase tracking-[0.2em] bg-gold/15 text-gold px-3 py-1 border border-gold/30 font-medium shadow-sm">
-              Demo Website · Fictional Brand
-            </span>
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-light text-sand/60">
+          <div>
+            © 2026 Aurevia Estates. All rights reserved.
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={scrollToTop}
-            className="flex items-center gap-2 px-4 py-2 border border-gold/40 text-gold hover:bg-gold hover:text-charcoal transition-all duration-300 uppercase tracking-[0.2em] text-[10px] font-semibold"
-          >
-            <span>Back to top</span>
-            <ArrowUp className="w-3.5 h-3.5" />
-          </motion.button>
+          <div className="uppercase tracking-[0.2em] text-[10px] text-bronze font-medium">
+            FICTIONAL DEMO EXPERIENCE
+          </div>
+
+          <div className="flex items-center gap-6">
+            <Link href="/privacy" className="hover:text-ivory transition-colors duration-300">
+              Privacy
+            </Link>
+            <span>·</span>
+            <Link href="/terms" className="hover:text-ivory transition-colors duration-300">
+              Terms
+            </Link>
+
+            <motion.button
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0 }}
+              onClick={scrollToTop}
+              className="ml-4 p-2 border border-white/10 text-ivory hover:border-terracotta hover:text-terracotta transition-colors duration-300"
+              aria-label="Scroll to top"
+            >
+              <ArrowUp className="w-4 h-4" />
+            </motion.button>
+          </div>
         </div>
 
       </div>
     </footer>
   );
 };
+

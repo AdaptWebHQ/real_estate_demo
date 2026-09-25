@@ -52,10 +52,9 @@ export default function Home() {
       {/* Fixed Sticky Header Navigation */}
       <Navbar onOpenScheduleModal={() => handleOpenScheduleModal()} />
 
-      {/* Hero with Floating Search Filter */}
+      {/* Editorial Hero without search forms */}
       <Hero
         onOpenScheduleModal={() => handleOpenScheduleModal()}
-        onSearchProperties={(filters) => setSearchFilters(filters)}
       />
 
       {/* Trust Statistics */}

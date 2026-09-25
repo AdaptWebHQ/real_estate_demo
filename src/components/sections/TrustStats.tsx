@@ -1,128 +1,310 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
-import { motion, useInView, animate } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 
-interface SmoothCounterProps {
-  end: number;
-  suffix?: string;
-  decimals?: number;
-  formatComma?: boolean;
+interface StatItem {
+  value: number;
+  suffix: string;
+  label: string;
+  description: string;
+  delay: number;
 }
 
-const SmoothCounter: React.FC<SmoothCounterProps> = ({ end, suffix = '', decimals = 0, formatComma = false }) => {
-  const nodeRef = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(nodeRef, { once: true, margin: '-40px' });
+const STATS_DATA: StatItem[] = [
+  {
+    value: 15,
+    suffix: '+',
+    label: 'YEARS',
+    description: 'Established 2011',
+    delay: 600,
+  },
+  {
+    value: 28,
+    suffix: '',
+    label: 'PROJECTS',
+    description: 'Completed On-Time',
+    delay: 700,
+  },
+  {
+    value: 2400,
+    suffix: '+',
+    label: 'FAMILIES',
+    description: 'Across South India',
+    delay: 800,
+  },
+  {
+    value: 7,
+    suffix: '',
+    label: 'LOCATIONS',
+    description: 'Coimbatore Corridors',
+    delay: 900,
+  },
+];
+
+interface StatCounterProps {
+  value: number;
+  suffix: string;
+  delay: number;
+  shouldStart: boolean;
+  reducedMotion: boolean;
+}
+
+const StatCounter: React.FC<StatCounterProps> = ({
+  value,
+  suffix,
+  delay,
+  shouldStart,
+  reducedMotion,
+}) => {
+  const [displayValue, setDisplayValue] = useState<number>(0);
+  const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const animRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (!isInView || !nodeRef.current) return;
+    // If reduced motion or SSR, directly display final value
+    if (reducedMotion) {
+      setDisplayValue(value);
+      setIsCompleted(true);
+      return;
+    }
 
-    const node = nodeRef.current;
-    // Buttery-smooth frame-by-frame animation without React state jitter
-    const controls = animate(0, end, {
-      duration: 2.5,
-      ease: [0.16, 1, 0.3, 1], // High-end luxury ease curve
-      onUpdate(value) {
-        let formatted = decimals > 0 ? value.toFixed(decimals) : Math.floor(value).toString();
-        if (formatComma) {
-          const parts = formatted.split('.');
-          parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          formatted = parts.join('.');
+    if (!shouldStart || isCompleted) return;
+
+    let startTime: number | null = null;
+    const duration = 1400; // 1.4s duration
+
+    const timer = setTimeout(() => {
+      const step = (timestamp: number) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        
+        // Luxury cubic ease-out curve [0.16, 1, 0.3, 1] approximation
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const currentNum = Math.floor(easeProgress * value);
+
+        setDisplayValue(currentNum);
+
+        if (progress < 1) {
+          animRef.current = requestAnimationFrame(step);
+        } else {
+          setDisplayValue(value);
+          setIsCompleted(true);
         }
-        node.textContent = formatted + suffix;
-      },
-    });
+      };
 
-    return () => controls.stop();
-  }, [isInView, end, suffix, decimals, formatComma]);
+      animRef.current = requestAnimationFrame(step);
+    }, delay);
 
-  return <span ref={nodeRef}>0{suffix}</span>;
+    return () => {
+      clearTimeout(timer);
+      if (animRef.current) cancelAnimationFrame(animRef.current);
+    };
+  }, [shouldStart, value, delay, reducedMotion, isCompleted]);
+
+  // Format number using Indian locale (e.g. 2400 -> 2,400)
+  const formattedNumber = new Intl.NumberFormat('en-IN').format(
+    isCompleted || reducedMotion ? value : displayValue
+  );
+
+  return (
+    <span>
+      {formattedNumber}
+      {suffix}
+    </span>
+  );
 };
 
 export const TrustStats: React.FC = () => {
-  const stats = [
-    { targetNum: 15, suffix: '+', label: 'Years of Experience', detail: 'Established in 2011' },
-    { targetNum: 28, suffix: '', label: 'Projects Delivered', detail: 'On-time completion record' },
-    { targetNum: 2400, suffix: '+', formatComma: true, label: 'Happy Families', detail: 'Across South India' },
-    { targetNum: 7, suffix: '', label: 'Prime Locations', detail: 'Coimbatore & Regional' },
-    { targetNum: 4.8, suffix: '/5', decimals: 1, label: 'Customer Experience', detail: 'Verified home buyer score' },
-  ];
+  const sectionRef = useRef<HTMLElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    // Check reduced motion
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+    if (mediaQuery.matches) {
+      setHasAnimated(true);
+    }
+
+    const handleMediaChange = (e: MediaQueryListEvent) => {
+      setReducedMotion(e.matches);
+      if (e.matches) setHasAnimated(true);
+    };
+    mediaQuery.addEventListener('change', handleMediaChange);
+
+    // Micro-parallax scroll handler
+    const handleScroll = () => {
+      if (!mediaQuery.matches) {
+        setScrollY(window.scrollY);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Single-trigger IntersectionObserver
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasAnimated(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25, rootMargin: '-30px' }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleMediaChange);
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
+  }, []);
+
+  // Subtle Parallax calculation
+  const sectionTop = sectionRef.current ? sectionRef.current.offsetTop : 0;
+  const relScroll = Math.max(0, scrollY - sectionTop + 300);
+  const headingParallax = Math.min(8, relScroll * 0.015);
+  const statsParallax = Math.min(4, relScroll * 0.008);
+  const quoteParallax = Math.min(2, relScroll * 0.004);
 
   return (
-    <section id="trust-stats" className="py-24 bg-charcoal text-white border-b border-gold/20 relative overflow-hidden">
-      {/* Subtle Background Architectural Grid Texture */}
-      <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#C8A96B_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none" />
-
-      {/* Ambient Gold Radial Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[250px] bg-gold/5 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.15,
-              },
-            },
-          }}
-          className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12"
+    <section
+      ref={sectionRef}
+      id="trust-stats"
+      className="py-24 sm:py-32 bg-[#E8E1D5] text-[#18221F] relative overflow-hidden"
+    >
+      <div
+        className={`max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-12 transition-all duration-900 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
+      >
+        {/* Editorial Heading */}
+        <div
+          className="space-y-4 max-w-2xl transition-transform duration-300 ease-out"
+          style={{ transform: reducedMotion ? 'none' : `translateY(-${headingParallax}px)` }}
         >
-          {stats.map((stat, idx) => (
-            <motion.div
-              key={idx}
-              variants={{
-                hidden: { opacity: 0, y: 35, scale: 0.96 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-                },
-              }}
-              whileHover={{ y: -4, transition: { duration: 0.3, ease: 'easeOut' } }}
-              className="relative flex flex-col space-y-2.5 pl-6 group cursor-default"
+          <span
+            className={`text-xs uppercase font-semibold text-[#B86F52] block transition-all duration-500 ease-out ${
+              hasAnimated ? 'opacity-100 translate-y-0 tracking-[0.25em]' : 'opacity-0 translate-y-3 tracking-[0.2em]'
+            }`}
+            style={{ transitionDelay: '100ms' }}
+          >
+            PROVEN TRACK RECORD
+          </span>
+
+          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#18221F] tracking-tight leading-tight">
+            <span
+              className={`block transition-all duration-800 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: '200ms' }}
             >
-              {/* Smooth Vertical Line Draw with Glow Beam Effect */}
-              <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-charcoal-700 overflow-hidden">
-                <motion.div
-                  initial={{ scaleY: 0 }}
-                  whileInView={{ scaleY: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.2, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full h-full bg-gradient-to-b from-gold via-gold/60 to-gold/20 origin-top"
-                />
-                {/* Traveling Light Beam on Hover */}
-                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300" />
-              </div>
+              Experience That Shapes Every
+            </span>
+            <span
+              className={`block transition-all duration-800 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: '320ms' }}
+            >
+              Address.
+            </span>
+          </h2>
+        </div>
 
-              {/* Ultra-Smooth Counter Number */}
-              <div className="font-display text-3xl sm:text-4xl lg:text-5xl font-normal text-white group-hover:text-gold transition-colors duration-400 leading-none tracking-tight">
-                <SmoothCounter
-                  end={stat.targetNum}
+        {/* Animated Horizontal Divider Line */}
+        <div className="relative">
+          <div
+            className={`h-[1px] bg-[#18221F]/15 origin-left transition-all duration-900 ease-out ${
+              hasAnimated ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+            }`}
+            style={{ transitionDelay: '450ms' }}
+          />
+        </div>
+
+        {/* 4 Large Statistics Grid with Vertical Dividers */}
+        <div
+          className="grid grid-cols-2 md:grid-cols-4 relative border-b border-[#18221F]/15 py-8 transition-transform duration-300 ease-out"
+          style={{ transform: reducedMotion ? 'none' : `translateY(-${statsParallax}px)` }}
+        >
+          {STATS_DATA.map((stat, idx) => (
+            <div
+              key={idx}
+              className={`relative p-4 sm:p-8 space-y-2 group transition-all duration-700 ease-out ${
+                hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
+              style={{ transitionDelay: `${stat.delay}ms` }}
+            >
+              {/* Vertical Divider (Except first item) */}
+              {idx > 0 && (
+                <div
+                  className={`hidden md:block absolute left-0 top-0 bottom-0 w-[1px] bg-[#18221F]/15 origin-top transition-all duration-700 ease-out ${
+                    hasAnimated ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+                  }`}
+                  style={{ transitionDelay: '500ms' }}
+                />
+              )}
+
+              {/* Number Count-Up Display */}
+              <div className="font-serif text-4xl sm:text-6xl font-normal text-[#18221F] group-hover:text-[#B86F52] leading-none tracking-tight transition-all duration-300 transform group-hover:-translate-y-1">
+                <StatCounter
+                  value={stat.value}
                   suffix={stat.suffix}
-                  decimals={stat.decimals}
-                  formatComma={stat.formatComma}
+                  delay={stat.delay}
+                  shouldStart={hasAnimated}
+                  reducedMotion={reducedMotion}
                 />
               </div>
 
-              {/* Label */}
-              <span className="text-xs uppercase tracking-[0.18em] text-stone-light/90 font-medium group-hover:text-white transition-colors duration-300 pt-1">
-                {stat.label}
-              </span>
-
-              {/* Detail */}
-              <span className="text-[11px] text-stone-light/50 font-light group-hover:text-gold/90 transition-colors duration-300">
-                {stat.detail}
-              </span>
-            </motion.div>
+              {/* Label & Description */}
+              <div
+                className={`space-y-0.5 transition-all duration-500 ease-out ${
+                  hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+                }`}
+                style={{ transitionDelay: `${stat.delay + 400}ms` }}
+              >
+                <span className="text-sm uppercase tracking-[0.2em] text-[#B86F52] font-semibold block">
+                  {stat.label}
+                </span>
+                <span className="text-xs text-[#303633]/70 font-light block group-hover:text-[#303633] transition-colors">
+                  {stat.description}
+                </span>
+              </div>
+            </div>
           ))}
-        </motion.div>
+        </div>
+
+        {/* Supporting Quote Block */}
+        <div
+          className="relative pl-6 transition-transform duration-300 ease-out"
+          style={{ transform: reducedMotion ? 'none' : `translateY(-${quoteParallax}px)` }}
+        >
+          {/* Vertical Accent Line */}
+          <div
+            className={`absolute left-0 top-0 bottom-0 w-[2px] bg-[#A9825B] origin-top transition-all duration-700 ease-out ${
+              hasAnimated ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+            }`}
+            style={{ transitionDelay: '1200ms' }}
+          />
+
+          {/* Quote */}
+          <p
+            className={`text-xs sm:text-sm text-[#303633]/80 font-light max-w-3xl leading-relaxed italic transition-all duration-800 ease-out ${
+              hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+            }`}
+            style={{ transitionDelay: '1300ms' }}
+          >
+            "From our first community to today's signature residences, every project is shaped by the same attention to place, quality and experience."
+          </p>
+        </div>
+
       </div>
     </section>
   );
 };
+
+

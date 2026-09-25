@@ -9,40 +9,66 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Architectural Color Palette
+        ivory: {
+          DEFAULT: "#F5F2EA",
+          warm: "#F5F2EA",
+        },
+        sand: {
+          DEFAULT: "#E8E1D5",
+          soft: "#E8E1D5",
+        },
+        warmwhite: {
+          DEFAULT: "#FCFBF8",
+        },
+        forest: {
+          DEFAULT: "#18221F",
+          deep: "#18221F",
+          charcoal: "#222B28",
+        },
         charcoal: {
-          DEFAULT: "#111111",
-          900: "#111111",
-          800: "#181818",
-          700: "#222222",
-          600: "#333333",
-          500: "#555555",
+          DEFAULT: "#303633",
+          soft: "#303633",
+          green: "#222B28",
+          dark: "#18221F",
+          900: "#18221F",
+          800: "#222B28",
+          700: "#303633",
         },
-        offwhite: {
-          DEFAULT: "#F7F6F2",
-          warm: "#FAF9F6",
-          soft: "#F3F1EC",
-        },
-        gold: {
-          DEFAULT: "#C8A96B",
-          champagne: "#C8A96B",
-          light: "#DFC798",
-          dark: "#A6894C",
+        terracotta: {
+          DEFAULT: "#B86F52",
+          muted: "#B86F52",
         },
         bronze: {
-          DEFAULT: "#9D8050",
-          muted: "#9D8050",
+          DEFAULT: "#A9825B",
+          warm: "#A9825B",
+        },
+        sage: {
+          DEFAULT: "#8B9A87",
+        },
+        // Backwards compatibility aliases
+        offwhite: {
+          DEFAULT: "#F5F2EA",
+          warm: "#FCFBF8",
+          soft: "#E8E1D5",
+        },
+        gold: {
+          DEFAULT: "#A9825B",
+          champagne: "#A9825B",
+          light: "#B86F52",
+          dark: "#18221F",
         },
         stone: {
-          DEFAULT: "#8B887F",
-          light: "#E8E5DE",
-          border: "#E2DFC0",
-          hover: "#78756C",
+          DEFAULT: "#303633",
+          light: "#E8E1D5",
+          border: "#D8D0C3",
+          hover: "#222B28",
         },
       },
       fontFamily: {
-        serif: ["var(--font-playfair)", "Georgia", "serif"],
-        display: ["var(--font-playfair)", "Georgia", "serif"],
-        sans: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        serif: ["var(--font-cormorant)", "Cormorant Garamond", "Georgia", "serif"],
+        display: ["var(--font-cormorant)", "Cormorant Garamond", "Georgia", "serif"],
+        sans: ["var(--font-manrope)", "Manrope", "system-ui", "sans-serif"],
       },
       aspectRatio: {
         "4/3": "4 / 3",
@@ -50,9 +76,9 @@ const config: Config = {
         "3/4": "3 / 4",
       },
       boxShadow: {
-        editorial: "0 20px 40px -15px rgba(17, 17, 17, 0.07)",
-        card: "0 10px 30px -10px rgba(0, 0, 0, 0.05)",
-        floating: "0 25px 50px -12px rgba(17, 17, 17, 0.25)",
+        editorial: "0 20px 40px -15px rgba(24, 34, 31, 0.08)",
+        card: "0 10px 30px -10px rgba(24, 34, 31, 0.05)",
+        floating: "0 25px 50px -12px rgba(24, 34, 31, 0.18)",
       },
       animation: {
         "slow-zoom": "slowZoom 20s infinite alternate ease-in-out",

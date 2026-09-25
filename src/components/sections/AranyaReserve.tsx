@@ -1,28 +1,25 @@
-'use me';
 'use client';
 
 import React from 'react';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle2, MapPin, ShieldCheck, Zap, Trees, Home, Compass } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface AranyaReserveProps {
   onOpenScheduleModal?: () => void;
 }
 
-export const AranyaReserve: React.FC<AranyaReserveProps> = ({ onOpenScheduleModal }) => {
-  const features = [
-    { label: '38 Private Villas', icon: Home },
-    { label: '3 & 4 BHK Layouts', icon: Compass },
-    { label: 'Landscaped Central Garden', icon: Trees },
-    { label: 'Exclusive Clubhouse & Spa', icon: ShieldCheck },
-    { label: 'Private Terraces', icon: MapPin },
-    { label: 'EV-Ready Parking', icon: Zap },
-    { label: 'Security-Controlled Entry', icon: ShieldCheck },
+export const AranyaReserve: React.FC<AranyaReserveProps> = () => {
+  const specs = [
+    '38 Private Villas',
+    '3 & 4 BHK Layouts',
+    'Landscaped Gardens',
+    'Private Terraces',
   ];
 
   return (
-    <section id="aranya-reserve" className="relative py-28 bg-charcoal text-white overflow-hidden">
-      {/* Background Hero Image */}
+    <section id="aranya-reserve" className="relative py-28 sm:py-36 bg-[#18221F] text-[#FCFBF8] overflow-hidden">
+      {/* Background Architectural Image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop"
@@ -31,55 +28,49 @@ export const AranyaReserve: React.FC<AranyaReserveProps> = ({ onOpenScheduleModa
           sizes="100vw"
           className="object-cover object-center opacity-40 scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/90 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-charcoal/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#18221F] via-[#18221F]/90 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#18221F] via-transparent to-[#18221F]/70" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <div className="max-w-2xl space-y-8">
           <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <span className="h-[1px] w-8 bg-gold inline-block"></span>
-              <span className="text-xs uppercase tracking-[0.25em] text-gold font-semibold">
-                SIGNATURE VILLA RESERVE · KOVAIPUDUR
-              </span>
-            </div>
+            <span className="text-xs uppercase tracking-[0.25em] text-[#A9825B] font-semibold block">
+              SIGNATURE VILLA RESERVE · KOVAIPUDUR, COIMBATORE
+            </span>
 
-            <h2 className="font-serif text-4xl sm:text-6xl font-normal text-white leading-tight">
+            <h2 className="font-serif text-4xl sm:text-6xl font-normal text-[#FCFBF8] leading-tight">
               ARANYA RESERVE
             </h2>
 
-            <p className="font-serif text-2xl italic text-gold font-light">
+            <p className="font-serif text-2xl sm:text-3xl italic text-[#B86F52] font-light">
               "A quieter way to live."
             </p>
 
-            <p className="text-stone-light/80 text-sm font-light leading-relaxed">
+            <p className="text-sm sm:text-base text-[#E8E1D5]/80 font-light leading-relaxed">
               Set against the foothills of the Western Ghats, Aranya Reserve is an exclusive sanctuary of 38 independent villas crafted around open sky courtyards and private gardens.
             </p>
           </div>
 
-          {/* Feature Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-gold/20">
-            {features.map((feat, idx) => {
-              const IconComp = feat.icon;
-              return (
-                <div key={idx} className="flex items-center gap-2.5 text-xs text-stone-light/90 font-light">
-                  <IconComp className="w-4 h-4 text-gold shrink-0" />
-                  <span>{feat.label}</span>
-                </div>
-              );
-            })}
+          {/* Overlay Specs Grid */}
+          <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/15">
+            {specs.map((spec, idx) => (
+              <div key={idx} className="flex items-center gap-2.5 text-xs text-[#FCFBF8] font-medium tracking-wide">
+                <CheckCircle2 className="w-4 h-4 text-[#A9825B] shrink-0" />
+                <span>{spec}</span>
+              </div>
+            ))}
           </div>
 
-          {/* CTA */}
-          <div className="pt-6">
-            <button
-              onClick={() => onOpenScheduleModal?.()}
-              className="px-8 py-4 bg-gold text-charcoal text-xs uppercase tracking-[0.2em] font-semibold hover:bg-gold-light transition-all duration-300 flex items-center gap-3 group"
+          {/* CTA Button */}
+          <div className="pt-4">
+            <Link
+              href="/projects/aranya-reserve"
+              className="inline-flex px-8 py-4 bg-[#A9825B] text-[#18221F] text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#B86F52] hover:text-[#FCFBF8] transition-all duration-300 items-center justify-center gap-3 shadow-xl"
             >
-              <span>Discover Aranya Reserve</span>
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </button>
+              <span>DISCOVER ARANYA RESERVE</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </div>

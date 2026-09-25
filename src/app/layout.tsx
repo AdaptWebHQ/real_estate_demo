@@ -1,19 +1,19 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Playfair_Display as PlayfairDisplay, Outfit } from 'next/font/google';
+import { Cormorant_Garamond as CormorantGaramond, Manrope } from 'next/font/google';
 
-const playfair = PlayfairDisplay({
+const cormorant = CormorantGaramond({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
+  weight: ['300', '400', '500', '600', '700'],
   style: ['normal', 'italic'],
-  variable: '--font-playfair',
+  variable: '--font-cormorant',
   display: 'swap',
 });
 
-const outfit = Outfit({
+const manrope = Manrope({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-outfit',
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-manrope',
   display: 'swap',
 });
 
@@ -44,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${outfit.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${manrope.variable}`}>
       <body className="bg-offwhite text-charcoal font-sans antialiased selection:bg-gold selection:text-charcoal min-h-screen flex flex-col">
         {children}
       </body>

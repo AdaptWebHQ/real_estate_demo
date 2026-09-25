@@ -1,4 +1,3 @@
-'use me';
 'use client';
 
 import React, { useState } from 'react';
@@ -38,7 +37,7 @@ export const LeadEnquiryForm: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-offwhite text-charcoal">
+    <section id="contact" className="py-24 bg-sand text-forest">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
@@ -46,48 +45,48 @@ export const LeadEnquiryForm: React.FC = () => {
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <span className="h-[1px] w-8 bg-gold inline-block"></span>
-                <span className="text-xs uppercase tracking-[0.25em] text-gold font-medium">
+                <span className="h-[1px] w-8 bg-terracotta inline-block"></span>
+                <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium">
                   DIRECT ADVISORY
                 </span>
               </div>
-              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-charcoal">
+              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-forest">
                 Let's Find Your Place.
               </h2>
-              <p className="text-stone-hover text-sm font-light leading-relaxed">
+              <p className="text-charcoal/80 text-sm font-light leading-relaxed">
                 Connect directly with our dedicated property advisors in Coimbatore for tailored site visits and layout consultation.
               </p>
             </div>
 
             {/* Contact Specs */}
-            <div className="bg-white p-8 border border-stone-light/80 space-y-6 shadow-card">
+            <div className="bg-ivory p-8 border border-forest/10 space-y-6 shadow-sm">
               <div className="space-y-1">
-                <span className="text-xs uppercase tracking-[0.2em] font-semibold text-charcoal block">
+                <span className="text-xs uppercase tracking-[0.2em] font-semibold text-forest block">
                   Aurevia Estates
                 </span>
-                <p className="text-xs text-stone font-light flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-gold shrink-0 mt-0.5" />
+                <p className="text-xs text-charcoal/80 font-light flex items-start gap-2">
+                  <MapPin className="w-4 h-4 text-terracotta shrink-0 mt-0.5" />
                   No. 42, Avinashi Road, Coimbatore, Tamil Nadu 641018
                 </p>
               </div>
 
-              <div className="space-y-2 border-t border-stone-light/60 pt-4 text-xs text-stone font-light">
+              <div className="space-y-2 border-t border-forest/10 pt-4 text-xs text-charcoal/80 font-light">
                 <p className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-gold" />
-                  <span>Phone: <strong className="text-charcoal">+91 422 401 2800</strong></span>
+                  <Phone className="w-4 h-4 text-terracotta" />
+                  <span>Phone: <strong className="text-forest font-mono">+91 422 401 2800</strong></span>
                 </p>
                 <p className="flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-gold" />
-                  <span>Email: <strong className="text-charcoal">hello@aureviaestates.example</strong></span>
+                  <Mail className="w-4 h-4 text-terracotta" />
+                  <span>Email: <strong className="text-forest">hello@aureviaestates.example</strong></span>
                 </p>
                 <p className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-gold" />
+                  <Clock className="w-4 h-4 text-terracotta" />
                   <span>Office Hours: <strong>Monday – Saturday (9:30 AM – 6:30 PM)</strong></span>
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-stone-light/40">
-                <span className="text-[10px] uppercase tracking-[0.18em] text-stone/80 block">
+              <div className="pt-2 border-t border-forest/10">
+                <span className="text-[10px] uppercase tracking-[0.18em] text-charcoal/60 block">
                   * Fictional demo contact information for presentation
                 </span>
               </div>
@@ -95,25 +94,25 @@ export const LeadEnquiryForm: React.FC = () => {
           </div>
 
           {/* Right Column: Lead Enquiry Form */}
-          <div className="lg:col-span-7 bg-white p-8 sm:p-10 border border-stone-light/80 shadow-editorial">
-            <h3 className="font-serif text-2xl text-charcoal font-normal mb-6">
+          <div className="lg:col-span-7 bg-ivory p-8 sm:p-10 border border-forest/10 shadow-sm">
+            <h3 className="font-serif text-2xl text-forest font-normal mb-6">
               Tell Us What You're Looking For
             </h3>
 
             {submitted ? (
-              <div className="bg-offwhite border border-gold/40 p-8 text-center space-y-4 animate-fade-in-up">
-                <div className="w-12 h-12 rounded-full bg-gold/20 text-gold mx-auto flex items-center justify-center">
+              <div className="bg-warmwhite border border-terracotta/40 p-8 text-center space-y-4 animate-fade-in-up">
+                <div className="w-12 h-12 rounded-full bg-terracotta/20 text-terracotta mx-auto flex items-center justify-center">
                   <CheckCircle2 className="w-7 h-7" />
                 </div>
-                <h4 className="font-serif text-2xl text-charcoal font-medium">
+                <h4 className="font-serif text-2xl text-forest font-medium">
                   Thank you. Your enquiry has been received.
                 </h4>
-                <p className="text-xs text-stone font-light max-w-md mx-auto">
+                <p className="text-xs text-charcoal/80 font-light max-w-md mx-auto">
                   An Aurevia property advisor will contact you shortly to review your preferences and arrange next steps.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-4 px-6 py-2.5 bg-charcoal text-gold text-xs uppercase tracking-[0.15em] font-semibold hover:bg-gold hover:text-charcoal transition-colors"
+                  className="mt-4 px-6 py-2.5 bg-forest text-ivory text-xs uppercase tracking-[0.15em] font-medium hover:bg-terracotta transition-colors"
                 >
                   Submit Another Enquiry
                 </button>
@@ -123,7 +122,7 @@ export const LeadEnquiryForm: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Full Name */}
                   <div className="space-y-2">
-                    <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
+                    <label className="text-[11px] uppercase tracking-[0.15em] text-forest/70 font-medium">
                       Full Name *
                     </label>
                     <input
@@ -131,8 +130,8 @@ export const LeadEnquiryForm: React.FC = () => {
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       placeholder="e.g. Ramesh Sundaram"
-                      className={`w-full bg-offwhite text-charcoal border px-4 py-3 text-sm focus:border-gold focus:outline-none transition-colors ${
-                        errors.fullName ? 'border-red-500' : 'border-stone-light/80'
+                      className={`w-full bg-warmwhite text-forest border px-4 py-3 text-sm focus:border-terracotta focus:outline-none transition-colors ${
+                        errors.fullName ? 'border-red-500' : 'border-forest/15'
                       }`}
                     />
                     {errors.fullName && <span className="text-[10px] text-red-500">{errors.fullName}</span>}
@@ -140,7 +139,7 @@ export const LeadEnquiryForm: React.FC = () => {
 
                   {/* Phone */}
                   <div className="space-y-2">
-                    <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
+                    <label className="text-[11px] uppercase tracking-[0.15em] text-forest/70 font-medium">
                       Phone Number *
                     </label>
                     <input
@@ -148,8 +147,8 @@ export const LeadEnquiryForm: React.FC = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className={`w-full bg-offwhite text-charcoal border px-4 py-3 text-sm focus:border-gold focus:outline-none transition-colors ${
-                        errors.phone ? 'border-red-500' : 'border-stone-light/80'
+                      className={`w-full bg-warmwhite text-forest border px-4 py-3 text-sm focus:border-terracotta focus:outline-none transition-colors ${
+                        errors.phone ? 'border-red-500' : 'border-forest/15'
                       }`}
                     />
                     {errors.phone && <span className="text-[10px] text-red-500">{errors.phone}</span>}
@@ -158,7 +157,7 @@ export const LeadEnquiryForm: React.FC = () => {
 
                 {/* Email */}
                 <div className="space-y-2">
-                  <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
+                  <label className="text-[11px] uppercase tracking-[0.15em] text-forest/70 font-medium">
                     Email Address *
                   </label>
                   <input
@@ -166,8 +165,8 @@ export const LeadEnquiryForm: React.FC = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="ramesh@example.com"
-                    className={`w-full bg-offwhite text-charcoal border px-4 py-3 text-sm focus:border-gold focus:outline-none transition-colors ${
-                      errors.email ? 'border-red-500' : 'border-stone-light/80'
+                    className={`w-full bg-warmwhite text-forest border px-4 py-3 text-sm focus:border-terracotta focus:outline-none transition-colors ${
+                      errors.email ? 'border-red-500' : 'border-forest/15'
                     }`}
                   />
                   {errors.email && <span className="text-[10px] text-red-500">{errors.email}</span>}
@@ -176,13 +175,13 @@ export const LeadEnquiryForm: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {/* Preferred Location */}
                   <div className="space-y-2">
-                    <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
+                    <label className="text-[11px] uppercase tracking-[0.15em] text-forest/70 font-medium">
                       Preferred Location
                     </label>
                     <select
                       value={formData.location}
                       onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      className="w-full bg-offwhite text-charcoal border border-stone-light/80 px-3 py-3 text-sm focus:border-gold focus:outline-none"
+                      className="w-full bg-warmwhite text-forest border border-forest/15 px-3 py-3 text-sm focus:border-terracotta focus:outline-none"
                     >
                       <option value="Coimbatore">Coimbatore</option>
                       <option value="Chennai">Chennai</option>
@@ -194,13 +193,13 @@ export const LeadEnquiryForm: React.FC = () => {
 
                   {/* Property Type */}
                   <div className="space-y-2">
-                    <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
+                    <label className="text-[11px] uppercase tracking-[0.15em] text-forest/70 font-medium">
                       Property Type
                     </label>
                     <select
                       value={formData.propertyType}
                       onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
-                      className="w-full bg-offwhite text-charcoal border border-stone-light/80 px-3 py-3 text-sm focus:border-gold focus:outline-none"
+                      className="w-full bg-warmwhite text-forest border border-forest/15 px-3 py-3 text-sm focus:border-terracotta focus:outline-none"
                     >
                       <option value="Apartments">Apartments</option>
                       <option value="Luxury Villas">Luxury Villas</option>
@@ -211,13 +210,13 @@ export const LeadEnquiryForm: React.FC = () => {
 
                   {/* Budget */}
                   <div className="space-y-2">
-                    <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
+                    <label className="text-[11px] uppercase tracking-[0.15em] text-forest/70 font-medium">
                       Budget Range
                     </label>
                     <select
                       value={formData.budget}
                       onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                      className="w-full bg-offwhite text-charcoal border border-stone-light/80 px-3 py-3 text-sm focus:border-gold focus:outline-none"
+                      className="w-full bg-warmwhite text-forest border border-forest/15 px-3 py-3 text-sm focus:border-terracotta focus:outline-none"
                     >
                       <option value="₹50L – ₹1Cr">₹50L – ₹1Cr</option>
                       <option value="₹1Cr – ₹2Cr">₹1Cr – ₹2Cr</option>
@@ -228,7 +227,7 @@ export const LeadEnquiryForm: React.FC = () => {
 
                 {/* Message */}
                 <div className="space-y-2">
-                  <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
+                  <label className="text-[11px] uppercase tracking-[0.15em] text-forest/70 font-medium">
                     Message or Specific Requirements
                   </label>
                   <textarea
@@ -236,14 +235,14 @@ export const LeadEnquiryForm: React.FC = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell us about your timeframe, BHK preference, or specific amenities required..."
-                    className="w-full bg-offwhite text-charcoal border border-stone-light/80 px-4 py-3 text-sm focus:border-gold focus:outline-none"
+                    className="w-full bg-warmwhite text-forest border border-forest/15 px-4 py-3 text-sm focus:border-terracotta focus:outline-none"
                   />
                 </div>
 
                 {/* Submit CTA */}
                 <button
                   type="submit"
-                  className="w-full py-4 bg-charcoal text-gold text-xs uppercase tracking-[0.2em] font-semibold hover:bg-gold hover:text-charcoal transition-all duration-300 flex items-center justify-center gap-2 group"
+                  className="w-full py-4 bg-forest text-ivory text-xs uppercase tracking-[0.2em] font-medium hover:bg-terracotta transition-all duration-300 flex items-center justify-center gap-2 group"
                 >
                   <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                   Request a Consultation
@@ -257,3 +256,4 @@ export const LeadEnquiryForm: React.FC = () => {
     </section>
   );
 };
+
