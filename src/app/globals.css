@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
-  --font-manrope: 'Manrope', system-ui, sans-serif;
-  --font-playfair: var(--font-cormorant);
-  --font-outfit: var(--font-manrope);
-  --font-jakarta: var(--font-manrope);
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-jakarta: var(--font-inter);
+  --font-cormorant: var(--font-playfair);
+  --font-outfit: var(--font-inter);
   --color-charcoal: #111111;
   --color-offwhite: #F7F6F2;
   --color-gold: #C8A96B;
@@ -21,7 +21,7 @@ html {
 body {
   background-color: #F7F6F2;
   color: #111111;
-  font-family: var(--font-manrope), 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -30,11 +30,46 @@ body {
 
 /* Luxury Display Typography Utility */
 .font-display {
-  font-family: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
 }
 
 .font-serif {
-  font-family: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+}
+
+/* Custom Styled Select & Option Tags */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23A9825B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem !important;
+  cursor: pointer;
+}
+
+select option {
+  background-color: #18221F !important;
+  color: #FCFBF8 !important;
+  padding: 12px 16px !important;
+  font-family: var(--font-jakarta), sans-serif !important;
+}
+
+select option:hover,
+select option:focus,
+select option:checked {
+  background-color: #B86F52 !important;
+  color: #FCFBF8 !important;
+}
+
+/* Custom Styled Textarea & Resizer */
+textarea {
+  resize: none;
+}
+
+textarea::-webkit-resizer {
+  display: none;
 }
 
 /* Custom Scrollbar */

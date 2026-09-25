@@ -66,9 +66,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ["var(--font-cormorant)", "Cormorant Garamond", "Georgia", "serif"],
-        display: ["var(--font-cormorant)", "Cormorant Garamond", "Georgia", "serif"],
-        sans: ["var(--font-manrope)", "Manrope", "system-ui", "sans-serif"],
+        serif: ["var(--font-playfair)", "Playfair Display", "Georgia", "serif"],
+        display: ["var(--font-playfair)", "Playfair Display", "Georgia", "serif"],
+        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
       },
       aspectRatio: {
         "4/3": "4 / 3",

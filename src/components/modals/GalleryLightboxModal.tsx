@@ -1,7 +1,6 @@
-'use me';
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { X, MapPin, Tag } from 'lucide-react';
 import { GalleryItem } from '@/types';
@@ -12,6 +11,17 @@ interface GalleryLightboxModalProps {
 }
 
 export const GalleryLightboxModal: React.FC<GalleryLightboxModalProps> = ({ item, onClose }) => {
+  useEffect(() => {
+    if (item) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [item]);
+
   if (!item) return null;
 
   return (

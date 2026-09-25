@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, Home, IndianRupee, Bed, SlidersHorizontal, Sparkles } from 'lucide-react';
+import { CustomSelect } from '@/components/ui/CustomSelect';
 
 interface PropertySearchProps {
   onSearch: (filters: { location: string; type: string; budget: string; bedrooms: string }) => void;
@@ -101,75 +102,75 @@ export const PropertySearch: React.FC<PropertySearchProps> = ({ onSearch }) => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
             
             {/* Location Select */}
-            <div className="flex flex-col space-y-1.5 bg-[#1C1C1C] p-3 border border-white/10 hover:border-gold/50 transition-colors">
-              <label className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-gold font-medium flex items-center gap-1.5">
-                <MapPin className="w-3 h-3 text-gold shrink-0" />
+            <div className="flex flex-col space-y-1.5 bg-[#1C1C1C] p-3 border border-white/10 hover:border-[#A9825B]/50 transition-colors rounded-xl">
+              <label className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-[#A9825B] font-medium flex items-center gap-1.5">
+                <MapPin className="w-3 h-3 text-[#A9825B] shrink-0" />
                 Location
               </label>
-              <select
+              <CustomSelect
                 value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="w-full bg-transparent text-white font-serif text-xs sm:text-sm focus:outline-none cursor-pointer"
-              >
-                <option value="Coimbatore" className="bg-charcoal text-white">Coimbatore</option>
-                <option value="Chennai" className="bg-charcoal text-white">Chennai</option>
-                <option value="Bengaluru" className="bg-charcoal text-white">Bengaluru</option>
-                <option value="Ooty" className="bg-charcoal text-white">Ooty</option>
-                <option value="Tiruppur" className="bg-charcoal text-white">Tiruppur</option>
-              </select>
+                onChange={setLocation}
+                options={[
+                  { label: 'Coimbatore', value: 'Coimbatore' },
+                  { label: 'Chennai', value: 'Chennai' },
+                  { label: 'Bengaluru', value: 'Bengaluru' },
+                  { label: 'Ooty', value: 'Ooty' },
+                  { label: 'Tiruppur', value: 'Tiruppur' },
+                ]}
+              />
             </div>
 
             {/* Property Type Select */}
-            <div className="flex flex-col space-y-1.5 bg-[#1C1C1C] p-3 border border-white/10 hover:border-gold/50 transition-colors">
-              <label className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-gold font-medium flex items-center gap-1.5">
-                <Home className="w-3 h-3 text-gold shrink-0" />
+            <div className="flex flex-col space-y-1.5 bg-[#1C1C1C] p-3 border border-white/10 hover:border-[#A9825B]/50 transition-colors rounded-xl">
+              <label className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-[#A9825B] font-medium flex items-center gap-1.5">
+                <Home className="w-3 h-3 text-[#A9825B] shrink-0" />
                 Property Type
               </label>
-              <select
+              <CustomSelect
                 value={propertyType}
-                onChange={(e) => setPropertyType(e.target.value)}
-                className="w-full bg-transparent text-white font-serif text-xs sm:text-sm focus:outline-none cursor-pointer"
-              >
-                <option value="Apartments" className="bg-charcoal text-white">Apartments</option>
-                <option value="Luxury Villas" className="bg-charcoal text-white">Luxury Villas</option>
-                <option value="Boutique Residences" className="bg-charcoal text-white">Boutique Residences</option>
-                <option value="Penthouse" className="bg-charcoal text-white">Penthouse</option>
-              </select>
+                onChange={setPropertyType}
+                options={[
+                  { label: 'Apartments', value: 'Apartments' },
+                  { label: 'Luxury Villas', value: 'Luxury Villas' },
+                  { label: 'Boutique Residences', value: 'Boutique Residences' },
+                  { label: 'Penthouse', value: 'Penthouse' },
+                ]}
+              />
             </div>
 
             {/* Budget Select */}
-            <div className="flex flex-col space-y-1.5 bg-[#1C1C1C] p-3 border border-white/10 hover:border-gold/50 transition-colors">
-              <label className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-gold font-medium flex items-center gap-1.5">
-                <IndianRupee className="w-3 h-3 text-gold shrink-0" />
+            <div className="flex flex-col space-y-1.5 bg-[#1C1C1C] p-3 border border-white/10 hover:border-[#A9825B]/50 transition-colors rounded-xl">
+              <label className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-[#A9825B] font-medium flex items-center gap-1.5">
+                <IndianRupee className="w-3 h-3 text-[#A9825B] shrink-0" />
                 Budget Range
               </label>
-              <select
+              <CustomSelect
                 value={budget}
-                onChange={(e) => setBudget(e.target.value)}
-                className="w-full bg-transparent text-white font-serif text-xs sm:text-sm focus:outline-none cursor-pointer"
-              >
-                <option value="₹50L – ₹2Cr" className="bg-charcoal text-white">₹50L – ₹2Cr</option>
-                <option value="₹50L – ₹1Cr" className="bg-charcoal text-white">₹50L – ₹1Cr</option>
-                <option value="₹1Cr – ₹2Cr" className="bg-charcoal text-white">₹1Cr – ₹2Cr</option>
-                <option value="₹2Cr+" className="bg-charcoal text-white">₹2Cr+</option>
-              </select>
+                onChange={setBudget}
+                options={[
+                  { label: '₹50L – ₹2Cr', value: '₹50L – ₹2Cr' },
+                  { label: '₹50L – ₹1Cr', value: '₹50L – ₹1Cr' },
+                  { label: '₹1Cr – ₹2Cr', value: '₹1Cr – ₹2Cr' },
+                  { label: '₹2Cr+', value: '₹2Cr+' },
+                ]}
+              />
             </div>
 
             {/* Bedrooms Select */}
-            <div className="flex flex-col space-y-1.5 bg-[#1C1C1C] p-3 border border-white/10 hover:border-gold/50 transition-colors">
-              <label className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-gold font-medium flex items-center gap-1.5">
-                <Bed className="w-3 h-3 text-gold shrink-0" />
+            <div className="flex flex-col space-y-1.5 bg-[#1C1C1C] p-3 border border-white/10 hover:border-[#A9825B]/50 transition-colors rounded-xl">
+              <label className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-[#A9825B] font-medium flex items-center gap-1.5">
+                <Bed className="w-3 h-3 text-[#A9825B] shrink-0" />
                 Bedrooms
               </label>
-              <select
+              <CustomSelect
                 value={bedrooms}
-                onChange={(e) => setBedrooms(e.target.value)}
-                className="w-full bg-transparent text-white font-serif text-xs sm:text-sm focus:outline-none cursor-pointer"
-              >
-                <option value="2+ Bedrooms" className="bg-charcoal text-white">2+ Bedrooms</option>
-                <option value="3+ Bedrooms" className="bg-charcoal text-white">3+ Bedrooms</option>
-                <option value="4+ Bedrooms" className="bg-charcoal text-white">4+ Bedrooms</option>
-              </select>
+                onChange={setBedrooms}
+                options={[
+                  { label: '2+ Bedrooms', value: '2+ Bedrooms' },
+                  { label: '3+ Bedrooms', value: '3+ Bedrooms' },
+                  { label: '4+ Bedrooms', value: '4+ Bedrooms' },
+                ]}
+              />
             </div>
 
           </div>

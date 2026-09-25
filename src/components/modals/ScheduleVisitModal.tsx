@@ -1,9 +1,10 @@
-'use me';
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Calendar, Clock, CheckCircle2, Building, Send } from 'lucide-react';
 import { PROPERTIES_DATA } from '@/data/properties';
+import { CustomSelect } from '@/components/ui/CustomSelect';
+import { CustomDatePicker } from '@/components/ui/CustomDatePicker';
 
 interface ScheduleVisitModalProps {
   isOpen: boolean;
@@ -28,6 +29,18 @@ export const ScheduleVisitModal: React.FC<ScheduleVisitModalProps> = ({
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  // Lock background body scrolling when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const validate = () => {
@@ -50,10 +63,10 @@ export const ScheduleVisitModal: React.FC<ScheduleVisitModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/85 backdrop-blur-md animate-fade-in-up">
-      <div className="bg-white w-full max-w-lg border border-stone-light/80 shadow-2xl overflow-hidden relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-charcoal/85 backdrop-blur-md animate-fade-in-up overflow-y-auto py-6">
+      <div className="bg-white w-full max-w-lg border border-stone-light/80 shadow-2xl relative my-auto rounded-2xl flex flex-col max-h-[90vh]">
         {/* Modal Header */}
-        <div className="bg-charcoal text-white p-6 border-b border-gold/30 flex items-center justify-between">
+        <div className="bg-charcoal text-white p-6 border-b border-gold/30 flex items-center justify-between rounded-t-2xl shrink-0">
           <div className="flex items-center gap-2">
             <Calendar className="w-5 h-5 text-gold" />
             <h3 className="font-serif text-xl font-normal text-white">
@@ -70,7 +83,7 @@ export const ScheduleVisitModal: React.FC<ScheduleVisitModalProps> = ({
         </div>
 
         {/* Modal Body */}
-        <div className="p-8">
+        <div className="p-6 sm:p-8 overflow-y-auto flex-1 space-y-4">
           {submitted ? (
             <div className="text-center space-y-4 py-6">
               <div className="w-14 h-14 rounded-full bg-gold/20 text-gold mx-auto flex items-center justify-center">
@@ -103,7 +116,7 @@ export const ScheduleVisitModal: React.FC<ScheduleVisitModalProps> = ({
 
               {/* Name */}
               <div className="space-y-1">
-                <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
+                <label className="text-[11px] uppercase tracking-[0.15em] text-[#18221F]/70 font-medium">
                   Full Name *
                 </label>
                 <input
@@ -111,8 +124,8 @@ export const ScheduleVisitModal: React.FC<ScheduleVisitModalProps> = ({
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Vikramaditya"
-                  className={`w-full bg-offwhite text-charcoal border px-3.5 py-2.5 text-sm focus:border-gold focus:outline-none ${
-                    errors.name ? 'border-red-500' : 'border-stone-light/80'
+                  className={`w-full bg-[#FCFBF8] text-[#18221F] border px-4 py-3 text-sm rounded-xl shadow-sm focus:border-[#B86F52] hover:border-[#B86F52] focus:outline-none transition-all duration-300 ${
+                    errors.name ? 'border-red-500' : 'border-[#E8E1D5]'
                   }`}
                 />
                 {errors.name && <span className="text-[10px] text-red-500">{errors.name}</span>}
@@ -121,7 +134,7 @@ export const ScheduleVisitModal: React.FC<ScheduleVisitModalProps> = ({
               {/* Phone & Email */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
+                  <label className="text-[11px] uppercase tracking-[0.15em] text-[#18221F]/70 font-medium">
                     Phone Number *
                   </label>
                   <input
@@ -129,15 +142,15 @@ export const ScheduleVisitModal: React.FC<ScheduleVisitModalProps> = ({
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+91 98765 43210"
-                    className={`w-full bg-offwhite text-charcoal border px-3.5 py-2.5 text-sm focus:border-gold focus:outline-none ${
-                      errors.phone ? 'border-red-500' : 'border-stone-light/80'
+                    className={`w-full bg-[#FCFBF8] text-[#18221F] border px-4 py-3 text-sm rounded-xl shadow-sm focus:border-[#B86F52] hover:border-[#B86F52] focus:outline-none transition-all duration-300 ${
+                      errors.phone ? 'border-red-500' : 'border-[#E8E1D5]'
                     }`}
                   />
                   {errors.phone && <span className="text-[10px] text-red-500">{errors.phone}</span>}
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
+                  <label className="text-[11px] uppercase tracking-[0.15em] text-[#18221F]/70 font-medium">
                     Email Address *
                   </label>
                   <input
@@ -145,8 +158,8 @@ export const ScheduleVisitModal: React.FC<ScheduleVisitModalProps> = ({
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="name@example.com"
-                    className={`w-full bg-offwhite text-charcoal border px-3.5 py-2.5 text-sm focus:border-gold focus:outline-none ${
-                      errors.email ? 'border-red-500' : 'border-stone-light/80'
+                    className={`w-full bg-[#FCFBF8] text-[#18221F] border px-4 py-3 text-sm rounded-xl shadow-sm focus:border-[#B86F52] hover:border-[#B86F52] focus:outline-none transition-all duration-300 ${
+                      errors.email ? 'border-red-500' : 'border-[#E8E1D5]'
                     }`}
                   />
                   {errors.email && <span className="text-[10px] text-red-500">{errors.email}</span>}
@@ -158,19 +171,24 @@ export const ScheduleVisitModal: React.FC<ScheduleVisitModalProps> = ({
                 <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
                   Select Residence
                 </label>
-                <select
+                <CustomSelect
                   value={formData.property}
-                  onChange={(e) => setFormData({ ...formData, property: e.target.value })}
-                  className="w-full bg-offwhite text-charcoal border border-stone-light/80 px-3 py-2.5 text-sm focus:border-gold focus:outline-none"
-                >
-                  {PROPERTIES_DATA.map((p) => (
-                    <option key={p.id} value={`${p.name} (${p.location})`}>
-                      {p.name} — {p.location}
-                    </option>
-                  ))}
-                  <option value="The Grand Residences (Race Course)">The Grand Residences (Race Course)</option>
-                  <option value="Aranya Reserve (Kovaipudur)">Aranya Reserve (Kovaipudur)</option>
-                </select>
+                  onChange={(val) => setFormData({ ...formData, property: val })}
+                  options={[
+                    ...PROPERTIES_DATA.map((p) => ({
+                      label: `${p.name} — ${p.location}`,
+                      value: `${p.name} (${p.location})`,
+                    })),
+                    {
+                      label: 'The Grand Residences (Race Course)',
+                      value: 'The Grand Residences (Race Course)',
+                    },
+                    {
+                      label: 'Aranya Reserve (Kovaipudur)',
+                      value: 'Aranya Reserve (Kovaipudur)',
+                    },
+                  ]}
+                />
               </div>
 
               {/* Date & Time */}
@@ -179,11 +197,9 @@ export const ScheduleVisitModal: React.FC<ScheduleVisitModalProps> = ({
                   <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
                     Preferred Date
                   </label>
-                  <input
-                    type="date"
+                  <CustomDatePicker
                     value={formData.date}
-                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    className="w-full bg-offwhite text-charcoal border border-stone-light/80 px-3 py-2 text-sm focus:border-gold focus:outline-none"
+                    onChange={(val) => setFormData({ ...formData, date: val })}
                   />
                 </div>
 
@@ -191,16 +207,16 @@ export const ScheduleVisitModal: React.FC<ScheduleVisitModalProps> = ({
                   <label className="text-[11px] uppercase tracking-[0.15em] text-stone-hover font-medium">
                     Preferred Time
                   </label>
-                  <select
+                  <CustomSelect
                     value={formData.time}
-                    onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                    className="w-full bg-offwhite text-charcoal border border-stone-light/80 px-3 py-2 text-sm focus:border-gold focus:outline-none"
-                  >
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:30 AM">11:30 AM</option>
-                    <option value="02:30 PM">02:30 PM</option>
-                    <option value="04:30 PM">04:30 PM</option>
-                  </select>
+                    onChange={(val) => setFormData({ ...formData, time: val })}
+                    options={[
+                      { label: '10:00 AM', value: '10:00 AM' },
+                      { label: '11:30 AM', value: '11:30 AM' },
+                      { label: '02:30 PM', value: '02:30 PM' },
+                      { label: '04:30 PM', value: '04:30 PM' },
+                    ]}
+                  />
                 </div>
               </div>
 

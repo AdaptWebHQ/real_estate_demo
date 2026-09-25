@@ -1,19 +1,19 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Cormorant_Garamond as CormorantGaramond, Manrope } from 'next/font/google';
+import { Playfair_Display as PlayfairDisplay, Inter } from 'next/font/google';
 
-const cormorant = CormorantGaramond({
+const playfair = PlayfairDisplay({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   style: ['normal', 'italic'],
-  variable: '--font-cormorant',
+  variable: '--font-playfair',
   display: 'swap',
 });
 
-const manrope = Manrope({
+const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-manrope',
+  variable: '--font-inter',
   display: 'swap',
 });
 
@@ -44,7 +44,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${manrope.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+      <head>
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: blob: https:; connect-src 'self' ws: wss: https:; font-src 'self' data: https:; frame-src *;"
+        />
+      </head>
       <body className="bg-offwhite text-charcoal font-sans antialiased selection:bg-gold selection:text-charcoal min-h-screen flex flex-col">
         {children}
       </body>
